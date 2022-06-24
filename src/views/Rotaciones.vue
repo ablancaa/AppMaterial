@@ -1,58 +1,78 @@
 <template>
-        <h1>Rotaciones</h1>
-        <div class="inf">
+    <h1>Rotaciones</h1>
+    <div class="inf">
+        <table>
+            <tr>
+                <td>DUE</td>
+            </tr> 
+            <tr v-for="items in arrayDue">
+                <td> {{items.inf}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="lugares">
+        <table>
+            <tr>
+                <td>Lugar</td>
+            </tr>
+            <tr v-for="items in lugares">
+                <td > {{items.lloc}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="tcae">
+        <table>
+            <tr>
+                <td>TCAE</td>
+            </tr>
+            <tr v-for="items in arrayTCAE">
+                <td > {{items.tcae}}</td>
+            </tr>
+        </table>
+    </div> 
+    <div>
+        <h1>pruebas</h1>
+        <button @click="ordenaDUE()">OrdenaDue</button>
+    <div id="orden">
 
- <table>
-    <tr><td>DUE</td></tr>
-     
-        <tr v-for="items in arrayDue">
-       
-            <!-- <td > {{items.num}}</td> -->
-            <td> {{items.inf}}</td>
-        </tr>
-    </table>
-        </div>
-        <div class="lugares">
-            <table>
-    <tr><td>Lugar</td></tr>
-     
-        <tr v-for="items in lugares">
-       
-            <td > {{items.lloc}}</td>
-          
-        </tr>
-    </table>
-        </div>
-   <div class="tcae">
-     <table>
-        <tr> <td>TCAE</td></tr>
-       
-        <tr v-for="items in arrayTCAE">
-        
-            <td > {{items.tcae}}</td>
-        </tr>
-    </table>
-          </div> 
+        <table>
+            <tr>
+                <td>DUE</td>
+            </tr>
+            <tr v-for="items in arrayTotal">
+                <td> {{items.inf}}</td>
+            </tr>
+        </table>
+    </div>
+    </div>
 </template>
 
 <script>
+import { ref } from 'vue';
 export default {
+    
     name: 'Rotaciones',
     setup (props, context) {
+
+        let arrayTotal = [];
+
+
+
         let arrayDue = [
-        {num: 1 ,inf: 'Irene'}, 
-        {num: 2, inf: 'Marta'}, 
-        {num: 3, inf: 'Iñaki'}, 
-        {num: 4, inf: 'Mireia'}, 
-        {num: 5, inf: 'David'},
-        {num: 6, inf: 'Clara'},
-        {num: 7, inf: 'Jony'},
-        {num: 8, inf: 'Lorena'},
-        {num: 9, inf: 'Miriam'},
-        {num: 10, inf: 'Eva'},
-        {num: 11, inf: 'Pol'},
-        {num: 12, inf: 'Laura G'},
-        {num: 13, inf: 'Mª José'}];
+            {num: 1 ,inf: 'Irene'}, 
+            {num: 2, inf: 'Marta'}, 
+            {num: 3, inf: 'Iñaki'}, 
+            {num: 4, inf: 'Mireia'}, 
+            {num: 5, inf: 'David'},
+            {num: 6, inf: 'Clara'},
+            {num: 7, inf: 'Jony'},
+            {num: 8, inf: 'Lorena'},
+            {num: 9, inf: 'Miriam'},
+            {num: 10, inf: 'Eva'},
+            {num: 11, inf: 'Pol'},
+            {num: 12, inf: 'Laura G'},
+            {num: 13, inf: 'Mª José'}
+        ];
 
         let arrayTCAE = [
         {num: 1, tcae: 'Miriam'}, 
@@ -98,14 +118,26 @@ export default {
             {mes: 'Diciembre'},
         ];
 
-            function ordena (array){
-                for(let i=0; i < array.length-1; i++){
-                    let pos1 = array[0];
-                    arrayDue[i]=array[i+1];
+            function ordenaDUE (){
+                let i = 0;
+                let posicion = arrayDue[0];
+                for(i; i < arrayDue.length; i++){
+                    arrayTotal[i] = arrayDue[i+1];
                 };
-                arrayDue[i]=pos1;
+                arrayTotal[i] = posicion;
+                console.log(arrayTotal[i].inf);
+                return arrayTotal = arrayDue;
             }
-        return {arrayDue, arrayTCAE, lugares, meses, ordena}
+
+            function ordenaTCAE (array){
+                for (let i=0; array.length-1; i++){
+                    let posicion = array[array.length-1];
+                    array[i] = array[i-1] ;
+               }
+               array[i] = posicion; 
+               return arrayTotal = array;
+            }
+        return {arrayDue, arrayTCAE, lugares, meses, arrayTotal, ordenaDUE, ordenaTCAE }
     }
 }
 </script>
@@ -120,7 +152,7 @@ td{
 }
 .inf{
     float:left;
-        margin-left: 5px;
+    margin-left: 5px;
 
 }
 .tcae {
@@ -132,7 +164,7 @@ td{
 }
 .lugares {
     float: left;
-        margin-left: 5px;
+    margin-left: 5px;
 
 }
 
