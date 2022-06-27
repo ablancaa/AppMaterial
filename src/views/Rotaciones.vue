@@ -1,5 +1,6 @@
 <template>
     <h1>Rotaciones</h1>
+    <Cuadrante/>
     <div class="inf">
         <table>
             <tr>
@@ -49,9 +50,13 @@
 
 <script>
 import { ref } from 'vue';
+import Cuadrante from '@/components/CuadranteUbicaciones.vue'
 export default {
     
     name: 'Rotaciones',
+    components: {
+        Cuadrante,
+    },
     setup (props, context) {
 
         let arrayTotal = [];
@@ -126,6 +131,7 @@ export default {
                 };
                 arrayTotal[i] = posicion;
                 console.log(arrayTotal[i].inf);
+                localStorage = arrayTotal;
                 return arrayTotal = arrayDue;
             }
 
