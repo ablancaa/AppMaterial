@@ -1,42 +1,7 @@
 <template>
     <h1>Rotaciones</h1>
-<<<<<<< HEAD
-    <Cuadrante/>
-=======
-    <!--
->>>>>>> 10d26d22033d57af8ba2cdfd5020ed2fd1f0b901
-    <div class="inf">
-        <table>
-            <tr>
-                <td>DUE</td>
-            </tr> 
-            <tr v-for="items in arrayDue">
-                <td> {{items.inf}}</td>
-            </tr>
-        </table>
-    </div>
-    <div class="lugares">
-        <table>
-            <tr>
-                <td>Lugar</td>
-            </tr>
-            <tr v-for="items in lugares">
-                <td > {{items.lloc}}</td>
-            </tr>
-        </table>
-    </div>
-    <div class="tcae">
-        <table>
-            <tr>
-                <td>TCAE</td>
-            </tr>
-            <tr v-for="items in arrayTCAE">
-                <td > {{items.tcae}}</td>
-            </tr>
-        </table>
-    </div>
-    -->
-    <!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>  -->
+    
+  <Rotacion :lugares="arrayLugares"/>
     <div>
         <h1>pruebas</h1>
         
@@ -56,11 +21,13 @@
 <script>
 import { ref } from 'vue';
 import Cuadrante from '@/components/CuadranteUbicaciones.vue'
+import Rotacion from '@/components/RotacionList.vue'
 export default {
     
     name: 'Rotaciones',
     components: {
         Cuadrante,
+        Rotacion,
     },
     setup (props, context) {
 
@@ -127,7 +94,7 @@ export default {
             {mes: 'Diciembre'},
         ];
 
-<<<<<<< HEAD
+
             function ordenaDUE (){
                 let i = 0;
                 let posicion = arrayDue[0];
@@ -139,10 +106,10 @@ export default {
                 localStorage = arrayTotal;
                 return arrayTotal = arrayDue;
             }
-=======
+
         let infermeras = ref(arrayDue);
         let tcaes = ref(arrayTCAE);
->>>>>>> 10d26d22033d57af8ba2cdfd5020ed2fd1f0b901
+
 
         numTCAE.value = numTCAE.value - 1;
         numDUE.value = numDUE.value - 1;
