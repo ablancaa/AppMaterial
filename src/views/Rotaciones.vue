@@ -188,8 +188,7 @@ for (var i = 0; i < arrayFinal.length; i++) {
 }
 
         return {
-            arrayDue, arrayTCAE, arrayLugares, arrayMeses,
-             mix
+            arrayDue, arrayTCAE, arrayLugares, arrayMeses, mix
         }
     }
 }
