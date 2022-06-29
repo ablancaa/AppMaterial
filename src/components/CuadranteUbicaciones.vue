@@ -1,93 +1,80 @@
 <template>
    <div class="container">
+   <!-- <table> -->
+        <!-- <tr> -->
+            <!-- <td>{{ listado.id }}</td> -->
+        <!-- </tr> -->
+    <!-- <th> -->
+        <!-- <tr> -->
+            <!-- <td>Infermera</td> -->
+            <!-- <td>Ubicación</td> -->
+            <!-- <td>TCAE</td> -->
+        <!-- </tr> -->
+        <!-- <tr v-for="inf in listado.due" :key="inf"> -->
+            <!-- <td v-for="inf in listado.due" :key="inf">{{ inf.inf }}</td> -->
+            <!-- <td>{{ inf.inf }}</td> -->
+            <!-- <td>{{ inf.place }}</td> -->
+        <!-- </tr> -->
+    <!-- </th> -->
+   <!-- </table> -->
+   <br/>
    <table>
+	<tbody>
         <tr>
-            <td>Enero</td>
+            <td class="titulo">{{ lista.id }}</td>
         </tr>
     <th>
-        <tr>
-            <td>Infermera</td>
-            <td>Ubicación</td>
-            <td>TCAE</td>
+        <tr >
+            <td>UBICACIÓ</td>
+            <td v-for="dato in lista.place" :key="dato">{{ dato.lloc }} </td>
+        </tr>
+		<tr>
+            <td>DUE</td>
+            <td v-for="dato in lista.due" :key="dato.num">{{ dato.num }} - {{ dato.inf }} </td>    
         </tr>
         <tr>
-            <td>1</td>
-            <td>{{ lugares[0].lloc }}</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>{{ lugares[1].lloc }}</td>
-            <td>2</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>{{ lugares[2].lloc }}</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>{{ lugares[3].lloc }}</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>{{ lugares[4].lloc }}</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>{{ lugares[5].lloc }}</td>
-            <td>6</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>{{ lugares[6].lloc }}</td>
-            <td>7</td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td>{{ lugares[7].lloc }}</td>
-            <td>8</td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>{{ lugares[8].lloc }}</td>
-            <td>9</td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>{{ lugares[9].lloc }}</td>
-            <td>10</td>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td>{{ lugares[10].lloc }}</td>
-            <td>11</td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>{{ lugares[11].lloc }}</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>13</td>
-            <td>{{ lugares[12].lloc }}</td>
-            <td></td>
+            <td>TCAES</td>
+            <td v-for="dato in lista.tcae" :key="dato.num">{{ dato.num }} - {{ dato.tcae }} </td>
         </tr>
     </th>
-   </table>
+	</tbody>
+</table>
    </div>
 </template>
 
 <script>
 export default {
+    name: 'Cuadrante',
     props: {
-        lugares: Object,
+        listado: {
+            type: Object,
+        },
+    },
+    setup(props, context) { 
+
+        let lista = props.listado;
+        // [{
+            // id: props.listado,
+            // due: props.listado.due,
+            // place: props.listado.place,
+            // tcae: props.listado.tcae,
+
+        // }];
+        return { lista }
     }
+
 }
 </script>
 
 <style scoped>
-
+.titulo {
+    font-size: 16px;
+}
+table {
+    border: white solid 1px;
+}
+td {
+     border: white solid 1px;
+    /* padding: 1.5px;*/
+}
 </style>

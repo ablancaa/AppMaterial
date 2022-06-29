@@ -1,12 +1,11 @@
 <template>
     <h1>Rotaciones</h1>
     
-  <Rotacion :lugares="arrayLugares"/>
+    <Rotacion :mix="mix"/>
+    <Cuadrante/>
     <div>
-        <h1>pruebas</h1>
-        
+        <h1>Vista Rotaciones</h1>
     <div id="orden">
-        <p v-for="items in arrayFinal" :key="items">{{mes}} {{lloc}}</p>
         <label>Número de DUE:_</label>
         <input v-model="numDUE" type="number"/>
         <br/>
@@ -27,196 +26,170 @@ export default {
     name: 'Rotaciones',
     components: {
         Cuadrante,
-        Rotacion,
+        Rotacion: Rotacion,
     },
     setup (props, context) {
 
         let numDUE = ref();
         let numTCAE = ref();
-
         let arrayDue = [
-            {num: 1 ,inf: 'Irene'}, 
-            {num: 2, inf: 'Marta'}, 
-            {num: 3, inf: 'Iñaki'}, 
-            {num: 4, inf: 'Mireia'}, 
-            {num: 5, inf: 'David'},
-            {num: 6, inf: 'Clara'},
-            {num: 7, inf: 'Jony'},
-            {num: 8, inf: 'Lorena'},
-            {num: 9, inf: 'Miriam'},
-            {num: 10, inf: 'Eva'},
-            {num: 11, inf: 'Pol'},
-            {num: 12, inf: 'Laura G'},
-            {num: 13, inf: 'Mª José'}
+            { num: 1 ,inf: 'Irene' }, 
+            { num: 2, inf: 'Marta' }, 
+            { num: 3, inf: 'Iñaki' }, 
+            { num: 4, inf: 'Mireia' }, 
+            { num: 5, inf: 'David' },
+            { num: 6, inf: 'Clara' },
+            { num: 7, inf: 'Jony' },
+            { num: 8, inf: 'Lorena' },
+            { num: 9, inf: 'Miriam' },
+            { num: 10, inf: 'Eva' },
+            { num: 11, inf: 'Pol' },
+            { num: 12, inf: 'Laura G' },
+            { num: 13, inf: 'Mª José' }
         ];
 
         let arrayTCAE = [
-            {num: 1, tcae: 'Miriam'}, 
-            {num: 2, tcae: 'Maite'}, 
-            {num: 3, tcae: 'Pilar. M'}, 
-            {num: 4, tcae: 'Vanesa'}, 
-            {num: 5, tcae: 'Montse. G'},
-            {num: 6, tcae: 'Pilar. S'},
-            {num: 7, tcae: 'Alberto'},
-            {num: 8, tcae: 'Mª Luz'},
-            {num: 9, tcae: 'Lourdes'},
-            {num: 10, tcae: 'Elena'},
-            {num: 11, tcae: 'Sandra / Dalila'},
+            { num: 1, tcae: 'Miriam' }, 
+            { num: 2, tcae: 'Maite'}, 
+            { num: 3, tcae: 'Pilar. M' }, 
+            { num: 4, tcae: 'Vanesa' }, 
+            { num: 5, tcae: 'Montse. G' },
+            { num: 6, tcae: 'Pilar. S' },
+            { num: 7, tcae: 'Alberto' },
+            { num: 8, tcae: 'Mª Luz' },
+            { num: 9, tcae: 'Lourdes' },
+            { num: 10, tcae: 'Elena' },
+            { num: 11, tcae: 'Sandra / Dalila' },
         ];
 
         let arrayLugares = [
-            {lloc: 'CR 1-2'},
-            {lloc: 'CR 11-12'},
-            {lloc: 'CR 03-04'},
-            {lloc: 'SOPORTE'},
-            {lloc: 'COR P'},
-            {lloc: 'CR 13-14'},
-            {lloc: 'H DIA'},
-            {lloc: 'CR 05-06'},
-            {lloc: 'CR 15-16'},
-            {lloc: 'CR 07-08'},
-            {lloc: 'SOPORTE'},
-            {lloc: 'CR 09-10'},
-            {lloc: 'COR G'},];
+            { lloc: 'CR 1-2' },
+            { lloc: 'CR 11-12' },
+            { lloc: 'CR 03-04' },
+            { lloc: 'SOPORTE G' },
+            { lloc: 'COR P' },
+            { lloc: 'CR 13-14' },
+            { lloc: 'H DIA' },
+            { lloc: 'CR 05-06' },
+            { lloc: 'CR 15-16' },
+            { lloc: 'CR 07-08' },
+            { lloc: 'SOPORTE P' },
+            { lloc: 'CR 09-10' },
+            { lloc: 'COR G' }
+        ];
         
         let arrayMeses = [
-            {mes: 'Enero'},
-            {mes: 'Febrero'},
-            {mes: 'Marzo'},
-            {mes: 'Abril'},
-            {mes: 'Mayo'},
-            {mes: 'Junio'},
-            {mes: 'Julio'},
-            {mes: 'Agosto'},
-            {mes: 'Septiembre'},
-            {mes: 'Octubre'},
-            {mes: 'Noviembre'},
-            {mes: 'Diciembre'},
+            { mes: 'Enero' },
+            { mes: 'Febrero' },
+            { mes: 'Marzo' },
+            { mes: 'Abril' },
+            { mes: 'Mayo' },
+            { mes: 'Junio' },
+            { mes: 'Julio' },
+            { mes: 'Agosto' },
+            { mes: 'Septiembre' },
+            { mes: 'Octubre' },
+            { mes: 'Noviembre' },
+            { mes: 'Diciembre' },
         ];
 
+        let array
 
-            function ordenaDUE (){
-                let i = 0;
-                let posicion = arrayDue[0];
-                for(i; i < arrayDue.length; i++){
-                    arrayTotal[i] = arrayDue[i+1];
-                };
-                arrayTotal[i] = posicion;
-                console.log(arrayTotal[i].inf);
-                localStorage = arrayTotal;
-                return arrayTotal = arrayDue;
-            }
+        let mix = ref([
+            {
+                id: 'Enero',
+                due: arrayDue,
+                place: arrayLugares,
+                tcae: arrayTCAE,
+            },
+            {
+                id: 'Febrero',
+                due: arrayDue,
+                place: arrayLugares,
+                tcae: arrayTCAE
+            },
+            {
+                id: 'Marzo',
+                due: {},
+                place: {},
+                tcae: {}
+            },
+            {
+               id: 'Abril',
+               due: {},
+               place: {},
+                tcae: {}
+            },
+            {
+               id: 'Mayo',
+               due: {},
+               place: {},
+               tcae: {}
+            },
+            {
+                id: 'Junio',
+                due: {},
+                place: {},
+                tcae: {}
+            },
+            {
+               id: 'Julio',
+               due: {},
+               place: '',
+               tcae: {},
+            },
+            {
+               id: 'Agosto',
+               due: {},
+               place: '',
+               tcae: {},
+            },
+            {
+               id: 'Septiembre',
+               due: {},
+               place: '',
+               tcae: {},
+            },
+            {
+               id: 'Octubre',
+               due: {},
+               place: '',
+               tcae: {},
+            },
+            {
+               id: 'Noviembre',
+               due: {},
+               place: '',
+               tcae: {},
+            },
+            {
+               id: 'Diciembre',
+               due: {},
+               place: '',
+               tcae: {},
+            },
+        ]);
 
-        let infermeras = ref(arrayDue);
-        let tcaes = ref(arrayTCAE);
-
-
-        numTCAE.value = numTCAE.value - 1;
-        numDUE.value = numDUE.value - 1;
-
-        for (let i = 0; i < infermeras.value.lenght; i++) {
-            infermeras.value[i] = arrayDue[numDUE];
-                if (numDUE >= arrayDue.length - 1) {
-                    numDUE = -1;
-                }
-            numDUE++;
+        let arrayMesos = new Array(13);
+        for (let i = 0; i < arrayMesos.length; i++) {
+            arrayMesos[i] = new Array(3);
         }
-        for (let i = 0; i < tcaes.value; i++) {
-            tcaes.value[i] = arrayTCAE[numTCAE];
-                if (numTCAE >= arrayTCAE.length - 1) {
-                    numTCAE = -1;
-                }
-            numTCAE++;
-        }
+        //copia de los arrays para operar con ellos
+        let enfermeras = arrayDue.slice();
+        let auxiliares = arrayTCAE.slice();
+        let comodin = "";
+        let salto = false;
 
-        let arrayFinal = ref({
-            mes: arrayMeses,
-            lugares: arrayLugares,
-            infermeras: {},
-            tcaes: {},
-        });
-
-    function setUpRotation() { 
-        numTCAE.value = numTCAE.value - 1;
-        numDUE.value = numDUE.value - 1;
-
-        for (let i = 0; i < infermeras.value.lenght; i++) {
-            infermeras.value[i] = arrayDue[numDUE];
-                if (numDUE >= arrayDue.length - 1) {
-                    numDUE = -1;
-                }
-            numDUE++;
-        }
-
-        for (let i = 0; i < tcaes.value; i++) {
-            tcaes.value[i] = arrayTCAE[numTCAE];
-                if (numTCAE >= arrayTCAE.length - 1) {
-                    numTCAE = -1;
-                }
-            numTCAE++;
-        }
-
-        //console.log("DUE: " + numDUE.value);
-        //console.log("TCAE: " + numTCAE.value);
-
-        //console.log(infermeras.value);
-        //console.log(tcaes.value);
-        muestraRotacion();
-        }//FIN setUpRotation
-function esIgual(valor) {
-    return valor.lloc === 'SOPORTE';
+        //array tridimensional
+var arrayFinal = new Array(12);
+//Metemos un array en cada posición
+for (var i = 0; i < arrayFinal.length; i++) {
+    arrayFinal[i] = new Array(13);
 }
-        function muestraRotacion() {
-            for (let i = 0; i < 12; i++) {
-                let g = 0;
-                for (let j = 0; j < 13; j++) {
-                    arrayFinal.value.lugares = arrayLugares[j];
-                    arrayFinal.value.infermeras = infermeras[j];
-                    if (arrayLugares.find(esIgual())) {
-                        arrayFinal.value.lugares = "NULL";
-                    } else {
-                        arrayFinal.value.tcaes = tcaes[g];
-                        g++;
-                    }
-                }
-                //System.out.println();
-               console.log(arrayMeses[i]);
-                console.log("Habitacio\tEnfermera\tAuxiliar");
-                for (let k = 0; k < arrayFinal.value.length; k++) {
-                    for (let j = 0; j < 3; j++) {
-                        console.log(arrayFinal[k][j] + "\t\t");
-                    }
-                    System.out.println();
-                }
-                //System.out.println();
-                //rotarI(enfermeras);
-                //rotarD(auxiliares);
-            }
-        }
-
-        function ordenaDUE(array) {
-            let i = 0;
-            let posicion = arrayDue[0];
-            for(i; i < infermeras.value.length-1; i++){
-                array[i] = array[i + 1];
-            };
-            array[i] = posicion;
-            return array;
-        }
-
-        function ordenaTCAE (array){
-            for (let i=0; array.length-1; i++){
-                let posicion = array[array.length-1];
-                array[i] = array[i-1] ;
-            }
-            array[i] = posicion; 
-            return arrayTotal = array;
-        }
 
         return {
             arrayDue, arrayTCAE, arrayLugares, arrayMeses,
-            arrayFinal, infermeras, tcaes, numTCAE, numDUE, muestraRotacion,
-            setUpRotation, ordenaDUE, ordenaTCAE
+             mix
         }
     }
 }
