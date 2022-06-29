@@ -1,7 +1,7 @@
 <template>
     <h1>Rotaciones</h1>
     
-    <Rotacion :mix="mix"/>
+    <Rotacion :mix="arrayFinal" :meses="arrayMeses"/>
     <Cuadrante/>
     <div>
         <h1>Vista Rotaciones</h1>
@@ -93,8 +93,6 @@ export default {
             { mes: 'Diciembre' },
         ];
 
-        let array
-
         let mix = ref([
             {
                 id: 'Enero',
@@ -170,7 +168,7 @@ export default {
             },
         ]);
 
-        let arrayMesos = new Array(13);
+        let arrayMesos = new Array(12);
         for (let i = 0; i < arrayMesos.length; i++) {
             arrayMesos[i] = new Array(3);
         }
@@ -181,14 +179,62 @@ export default {
         let salto = false;
 
         //array tridimensional
-var arrayFinal = new Array(12);
-//Metemos un array en cada posición
-for (var i = 0; i < arrayFinal.length; i++) {
-    arrayFinal[i] = new Array(13);
-}
+        var arrayFinal = new Array(13);
+        //Metemos un array en cada posición
+        for (let i = 0; i < arrayFinal.length; i++) {
+            arrayFinal[i] = new Array(13);
+        }
+
+        //Volvemos a recorrer los arrays para la 3ª dimensión
+        //Recorremos el primer array
+        for (let i = 0; i < arrayFinal.length; i++) {
+            //Recorremos el array de cada posición i
+            for (var j = 0; j < arrayFinal[i].length; j++) {
+                //Creamos un array en cada posición
+                arrayFinal[i][j] = new Array(3);
+            }
+        }
+
+        for (let i = 0; i < arrayFinal.length; i++) {
+            let g = 0;
+            for (let j = 0; j < arrayFinal[i].length; j++) {
+
+                for (var k = 0; k < arrayFinal[i][j].length; k++) {
+                    //g = j;
+                    arrayFinal[i][j][0] = arrayLugares[j];
+                    arrayFinal[i][j][1] = enfermeras[j];
+                    if (arrayLugares[j].lloc === "SOPORTE G" || arrayLugares[j].lloc === "SOPORTE P") {
+                        arrayFinal[i][j][2] = "NULL";
+                        salto = true;
+                        //console.log("If de bucle para null" + salto);
+                    } else {                    
+                        arrayFinal[i][j][2] = arrayTCAE[g];
+                        //console.log("Else de bucle para null: " + salto);
+                    }
+                }
+                if (salto) {
+                    g--;
+                    salto = false;
+                }
+                let size = arrayFinal[i][j].length;
+                arrayFinal[i][j].push(arrayMeses[size+1]);
+                g++;
+            }
+            mueve_auxiliares();
+            mueve_enfermeras();
+        }
+        function mueve_enfermeras() {
+            comodin = enfermeras.shift(); //elimino el primer elemento y lo guardo
+            enfermeras.push(comodin);//lo pongo al final                    
+        }
+
+        function mueve_auxiliares() {
+            comodin = auxiliares.pop(); //elimino el ultimo elemento y lo guardo
+            auxiliares.unshift(comodin); //lo pongo al principio.
+        }
 
         return {
-            arrayDue, arrayTCAE, arrayLugares, arrayMeses, mix
+            arrayDue, arrayTCAE, arrayLugares, arrayMeses, arrayMesos, mix, arrayFinal
         }
     }
 }
