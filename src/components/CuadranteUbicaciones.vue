@@ -2,12 +2,12 @@
    <div class="container">
     <br/>
     <div>
-    <h4 >{{ meses[0].mes }}</h4>
+    <h4></h4>
     </div>
    <table class="izq">
 	<tbody>
         <tr>
-            <td class="titulo">{{ meses.mes }}</td>
+            <td class="titulo"></td>
         </tr>
     <th>
         <tr >
@@ -87,29 +87,27 @@
 </template>
 
 <script>
+import { reactive, computed } from 'vue';
 export default {
     name: 'Cuadrante',
     props: {
         listado: {
             type: Object,
         },
-        meses: {
+        mes: {
             type: Array,
+        }, 
+        mix: {
+            type: Object
         }
     },
     setup(props, context) { 
 
-        let lista = props.listado;
+        //let lista = props.listado;
+        let lista = reactive(props.listado);
+      
 
-        // [{
-            // id: props.listado,
-            // due: props.listado.due,
-            // place: props.listado.place,
-            // tcae: props.listado.tcae,
-
-        // }];
-
-        return { lista, props }
+        return { lista }
     }
 
 }

@@ -2,7 +2,7 @@
 <div class="container">
     <div id="contact-list" class="contact-list">
     <div v-for="asigancion in mix" :key="asigancion.id">
-      <Cuadrante :listado="asigancion" :meses="meses"/>
+      <Cuadrante :listado="asigancion"/>
     </div> 
     </div>
 </div>
@@ -17,16 +17,16 @@ import Cuadrante from "./CuadranteUbicaciones.vue";
             mix: {
                 type: Array,
             }, 
-            meses: {
+            mix2: {
                 type: Array,
-            }
+            },
     },
     components: { Cuadrante },
     setup(props, context) {
-        let listado = props.mix;
-        let meses = props.meses;
+        let listado = props.mix2;
+        
 
-        return { listado, meses }
+        return { listado }
         }
     }
 </script>

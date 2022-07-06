@@ -1,10 +1,8 @@
 <template>
     <h1>Rotaciones</h1>
     
-    <Rotacion :mix="arrayFinal"/> 
-
+    <Rotacion :mix="arrayFinal" :meses="arrayMeses"/>
     <Cuadrante/>
-    
     <div>
         <h1>Vista Rotaciones</h1>
     <div id="orden">
@@ -20,10 +18,9 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import Cuadrante from '@/components/CuadranteUbicaciones.vue'
 import Rotacion from '@/components/RotacionList.vue'
-
 export default {
     
     name: 'Rotaciones',
@@ -102,175 +99,76 @@ export default {
                 due: arrayDue,
                 place: arrayLugares,
                 tcae: arrayTCAE,
-                total: {},
             },
             {
                 id: 'Febrero',
                 due: arrayDue,
                 place: arrayLugares,
-                tcae: arrayTCAE,
-                total: {},
+                tcae: arrayTCAE
             },
             {
                 id: 'Marzo',
                 due: {},
                 place: {},
-                tcae: {},
-                total: {},
+                tcae: {}
             },
             {
                id: 'Abril',
                due: {},
                place: {},
-               tcae: {},
-               total: {},
+                tcae: {}
             },
             {
                id: 'Mayo',
                due: {},
                place: {},
-               tcae: {},
-               total: {},
+               tcae: {}
             },
             {
                 id: 'Junio',
                 due: {},
                 place: {},
-                tcae: {},
-                total: {},
+                tcae: {}
             },
             {
                id: 'Julio',
                due: {},
                place: '',
                tcae: {},
-               total: {},
             },
             {
                id: 'Agosto',
                due: {},
                place: '',
                tcae: {},
-               total: {},
             },
             {
                id: 'Septiembre',
                due: {},
                place: '',
                tcae: {},
-               total: {},
             },
             {
                id: 'Octubre',
                due: {},
                place: '',
                tcae: {},
-               total: {},
             },
             {
                id: 'Noviembre',
                due: {},
                place: '',
                tcae: {},
-               total: {},
             },
             {
                id: 'Diciembre',
                due: {},
                place: '',
                tcae: {},
-               total: {},
             },
         ]);
 
-        let mix2 = reactive([
-            {
-                id: 'Enero',
-                due: {},
-                place: {},
-                tcae: {},
-                total: arrayFinal,
-            },
-            {
-                id: 'Febrero',
-                due: {},
-                place: {},
-                tcae: {},
-                total: {},
-            },
-            {
-                id: 'Marzo',
-                due: {},
-                place: {},
-                tcae: {},
-                total: {},
-            },
-            {
-               id: 'Abril',
-               due: {},
-               place: {},
-               tcae: {},
-               total: {},
-            },
-            {
-               id: 'Mayo',
-               due: {},
-               place: {},
-               tcae: {},
-               total: {},
-            },
-            {
-                id: 'Junio',
-                due: {},
-                place: {},
-                tcae: {},
-                total: {},
-            },
-            {
-               id: 'Julio',
-               due: {},
-               place: '',
-               tcae: {},
-               total: {},
-            },
-            {
-               id: 'Agosto',
-               due: {},
-               place: '',
-               tcae: {},
-               total: {},
-            },
-            {
-               id: 'Septiembre',
-               due: {},
-               place: '',
-               tcae: {},
-               total: {},
-            },
-            {
-               id: 'Octubre',
-               due: {},
-               place: '',
-               tcae: {},
-               total: {},
-            },
-            {
-               id: 'Noviembre',
-               due: {},
-               place: '',
-               tcae: {},
-               total: {},
-            },
-            {
-               id: 'Diciembre',
-               due: {},
-               place: '',
-               tcae: {},
-               total: {},
-            },
-        ]);
-
-      let arrayMesos = new Array(11);
+        let arrayMesos = new Array(13);
         for (let i = 0; i < arrayMesos.length; i++) {
             arrayMesos[i] = new Array(3);
         }
@@ -278,13 +176,16 @@ export default {
         let enfermeras = arrayDue.slice();
         let auxiliares = arrayTCAE.slice();
         let comodin = "";
+        let mesos = 0;
         let salto = false;
+
         //array tridimensional
-        var arrayFinal = reactive(new Array(12));
+        var arrayFinal = new Array(13);
         //Metemos un array en cada posición
         for (let i = 0; i < arrayFinal.length; i++) {
             arrayFinal[i] = new Array(13);
         }
+
         //Volvemos a recorrer los arrays para la 3ª dimensión
         //Recorremos el primer array
         for (let i = 0; i < arrayFinal.length; i++) {
@@ -294,9 +195,11 @@ export default {
                 arrayFinal[i][j] = new Array(3);
             }
         }
+
         for (let i = 0; i < arrayFinal.length; i++) {
             let g = 0;
             for (let j = 0; j < arrayFinal[i].length; j++) {
+
                 for (var k = 0; k < arrayFinal[i][j].length; k++) {
                     //g = j;
                     arrayFinal[i][j][0] = arrayLugares[j];
@@ -306,7 +209,7 @@ export default {
                         salto = true;
                         //console.log("If de bucle para null" + salto);
                     } else {                    
-                        arrayFinal[i][j][2] = auxiliares[g];
+                        arrayFinal[i][j][2] = arrayTCAE[g];
                         //console.log("Else de bucle para null: " + salto);
                     }
                 }
@@ -315,21 +218,22 @@ export default {
                     salto = false;
                 }
                 let size = arrayFinal[i][j].length;
-                arrayFinal[i][j].push(arrayMeses[size]);
+                arrayFinal[i][j].push(arrayMeses[size+1]);
                 g++;
             }
-            
-            mueve_enfermeras();
             mueve_auxiliares();
+            mueve_enfermeras();
         }
         function mueve_enfermeras() {
             comodin = enfermeras.shift(); //elimino el primer elemento y lo guardo
             enfermeras.push(comodin);//lo pongo al final                    
         }
+
         function mueve_auxiliares() {
             comodin = auxiliares.pop(); //elimino el ultimo elemento y lo guardo
             auxiliares.unshift(comodin); //lo pongo al principio.
         }
+
         return {
             arrayDue, arrayTCAE, arrayLugares, arrayMeses, arrayMesos, mix, arrayFinal
         }
