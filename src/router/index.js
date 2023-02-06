@@ -14,6 +14,11 @@ const routes = [
     component: Rotaciones
   },
   {
+    path: '/Material',
+    name: 'Material',
+    component: Material
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

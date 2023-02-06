@@ -10,7 +10,7 @@
             <div class="card-body">
               <h5 class="card-title">Inventario de Material</h5>
               <p class="card-text">Gestión de material disponible en la unidad. Prestamos y devoluciones</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <router-link to="/Material" class="btn btn-primary">Material</router-link>
             </div>
         </div><!-- FIN card -->
       </div><!-- FIN container -->
